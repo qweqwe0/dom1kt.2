@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Таблица с числами</title>
+<style>
+  td {
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+  }
+  td.orange {
+    background-color: orange;
+  }
+</style>
+</head>
+<body>
+
+<table>
+  <tbody>
+  </tbody>
+</table>
+
+<button onclick="addNumber()">Добавить число</button>
+
+<script>
+  const numbers = [];
+  for (let i = 0; i < 30; i++) {
+    numbers.push(Math.floor(Math.random() * 100));
+  }
+
+  const tableBody = document.querySelector('tbody');
+  let row = document.createElement('tr');
+  let i = 0;
+  for (const number of numbers) {
+    if (i % 6 === 0 && i !== 0) {
+      tableBody.appendChild(row);
+      row = document.createElement('tr');
+    }
+
+    const cell = document.createElement('td');
+    cell.textContent = number;
+    if (number >= 50) {
+      cell.classList.add('orange');
+    }
+    row.appendChild(cell);
+    i++;
+  }
+  tableBody.appendChild(row);
+
+  function addNumber() {
+    const randomNumber = Math.floor(Math.random() * 100);
+    const newCell = document.createElement('td');
+    newCell.textContent = randomNumber;
+    if (randomNumber >= 50) {
+      newCell.classList.add('orange');
+    }
+    const lastRow = tableBody.lastElementChild;
+    if (lastRow.children.length === 6) {
+      const newRow = document.createElement('tr');
+      tableBody.appendChild(newRow);
+      newRow.appendChild(newCell);
+    } else {
+      lastRow.appendChild(newCell);
+    }
+  }
+</script>
+</body>
+</html>
